@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Debug CUDA Project",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "C:/Users/jabee/Documents/OpenCV-CUDA/opencv_preview-main/opencv_preview-main/parallel_worlds_2_cuda/build/parallel_worlds.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "C:/Users/jabee/Documents/OpenCV-CUDA/opencv_preview-main/opencv_preview-main/parallel_worlds_2_cuda/src",
+            "environment": [],
+            "console": "integratedTerminal"
+        }
+    ]
+}
