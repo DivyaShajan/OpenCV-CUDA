@@ -50,31 +50,6 @@ __host__ void EffectFilter::operator()(
     // use our OWN resizeBuffers
     // NOT the base class version
     this->resizeBuffers(w, h);
-    this->resizeGrid(w, h);
-
-    // allocate dEdge if not done yet
-    if(dEdge == nullptr) {
-        SAFE_CALL(cudaMalloc(
-            reinterpret_cast<void**>(&dEdge),
-            w * h * sizeof(char)
-        ));
-    }
-
-    // allocate dOut if not done yet
-    if(dOut == nullptr) {
-        SAFE_CALL(cudaMalloc(
-            reinterpret_cast<void**>(&dOut),
-            w * h * 3 * sizeof(unsigned char)
-        ));
-    }
-
-    // allocate dInput if not done yet
-    if(this->dInput == nullptr) {
-        SAFE_CALL(cudaMalloc(
-            reinterpret_cast<void**>(&this->dInput),
-            w * h * 3 * sizeof(unsigned char)
-        ));
-    }
 
     // copy color image CPU → GPU
     SAFE_CALL(cudaMemcpy(
@@ -108,6 +83,4 @@ __host__ void EffectFilter::operator()(
         w * h * 3 * sizeof(unsigned char),
         cudaMemcpyDeviceToHost
     ));
-
-    SAFE_CALL(cudaDeviceSynchronize());
 }

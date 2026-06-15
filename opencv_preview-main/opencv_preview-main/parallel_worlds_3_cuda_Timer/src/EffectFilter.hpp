@@ -41,8 +41,6 @@ public:
             // free old buffers
             if(this->dInput != nullptr)
                 SAFE_CALL(cudaFree(this->dInput));
-            if(this->dOutput != nullptr)
-                SAFE_CALL(cudaFree(this->dOutput));
             if(dEdge != nullptr)
                 SAFE_CALL(cudaFree(dEdge));
             if(dOut != nullptr)
@@ -52,12 +50,6 @@ public:
             SAFE_CALL(cudaMalloc(
                 reinterpret_cast<void**>(&this->dInput),
                 currWidth * currHeight * 3 * sizeof(unsigned char)
-            ));
-
-            // allocate grey output buffer
-            SAFE_CALL(cudaMalloc(
-                reinterpret_cast<void**>(&this->dOutput),
-                currWidth * currHeight * sizeof(unsigned char)
             ));
 
             // allocate edge buffer

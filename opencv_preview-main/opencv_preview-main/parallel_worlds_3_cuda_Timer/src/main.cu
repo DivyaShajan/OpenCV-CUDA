@@ -26,7 +26,7 @@ PixelationFilter pixFilter16(3, 3, 16);
 PixelationFilter pixFilter32(3, 3, 32);
 
 // CPU timer
-Timer cpuTimer("Pipeline");
+Timer cpuTimer;
 
 /// draws text with background onto image
 // so it is always visible
@@ -92,9 +92,6 @@ __host__ int main(int argc, const char** argv) {
     cv::Mat convertedFrame(h, w, CV_8UC1);
     cv::Mat edgeFrame(h, w, CV_8UC1);
     cv::Mat effectFrame(h, w, CV_8UC3);
-    cv::Mat pixFrame8(h, w, CV_8UC3);
-    cv::Mat pixFrame16(h, w, CV_8UC3);
-    cv::Mat pixFrame32(h, w, CV_8UC3);
 
     // display windows
     cv::namedWindow("1-Original",    0);
@@ -212,18 +209,10 @@ __host__ int main(int argc, const char** argv) {
             10, 60);
 
         // draw comparison on original
-        drawText(frameDisplay,
-            "8x8:  " + std::to_string(gpuTime8).substr(0,5) + "ms",
-            10, 30);
-        drawText(frameDisplay,
-            "16x16:" + std::to_string(gpuTime16).substr(0,5) + "ms",
-            10, 60);
-        drawText(frameDisplay,
-            "32x32:" + std::to_string(gpuTime32).substr(0,5) + "ms",
-            10, 90);
-        drawText(frameDisplay,
-            "Total:" + std::to_string(cpuTotal).substr(0,5) + "ms",
-            10, 120);
+        drawText(frameDisplay, msToString("8x8",   gpuTime8),          10, 30);
+        drawText(frameDisplay, msToString("16x16", gpuTime16),         10, 60);
+        drawText(frameDisplay, msToString("32x32", gpuTime32),         10, 90);
+        drawText(frameDisplay, msToString("Total", (float)cpuTotal),   10, 120);
 
         // show all 7 windows
         cv::imshow("1-Original",    frameDisplay);

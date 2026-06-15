@@ -46,23 +46,7 @@ __host__ void PixelationFilter::operator()(
     const unsigned int w,
     const unsigned int h)
 {
-    // manually allocate if needed
-    if(this->dInput == nullptr) {
-        SAFE_CALL(cudaMalloc(
-            reinterpret_cast<void**>(&this->dInput),
-            w * h * 3 * sizeof(unsigned char)
-        ));
-    }
-    if(this->dOutput == nullptr) {
-        SAFE_CALL(cudaMalloc(
-            reinterpret_cast<void**>(&this->dOutput),
-            w * h * 3 * sizeof(unsigned char)
-        ));
-        this->width  = w;
-        this->height = h;
-    }
-
-    this->resizeGrid(w, h);
+    this->prepareBuffers(w, h);
 
     // copy input CPU → GPU
     SAFE_CALL(cudaMemcpy(
@@ -99,6 +83,4 @@ __host__ void PixelationFilter::operator()(
         w * h * 3 * sizeof(unsigned char),
         cudaMemcpyDeviceToHost
     ));
-
-    SAFE_CALL(cudaDeviceSynchronize());
 }

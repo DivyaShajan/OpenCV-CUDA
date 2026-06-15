@@ -56,7 +56,8 @@ target_include_directories(parallel_worlds PRIVATE
     ${OpenCV_INCLUDE_DIRS}
 )
 
-set(CMAKE_CUDA_ARCHITECTURES 86)
+# GTX 1650 = Turing = 7.5
+set(CMAKE_CUDA_ARCHITECTURES 75)
 
 set_target_properties(parallel_worlds PROPERTIES
     CUDA_SEPARABLE_COMPILATION ON
